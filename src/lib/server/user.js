@@ -10,8 +10,7 @@ export async function createUser(googleId, name, picture) {
 			googleId,
 			name,
 			picture,
-			admin: false,
-			lastMessageFrom: 'empty'
+			admin: false
 		});
 		const user = await users.findOne({ _id: insertedId });
 		return user;

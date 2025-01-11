@@ -7,5 +7,5 @@ export const google = new Google(
 	GOOGLE_CLIENT_SECRET,
 	dev
 		? 'http://localhost:5173/api/oauth/google/callback'
-		: 'https://nirvana-burgers.vercel.app/api/oauth/google/callback'
+		: 'https://nirvana-nails.vercel.app/api/oauth/google/callback'
 );

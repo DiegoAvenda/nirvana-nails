@@ -1,40 +1,71 @@
 import client from '$lib/server/db.js';
 
-export const load = async () => {
-	const today = new Date();
-	today.setHours(0, 0, 0, 0);
-	const weekFromNow = new Date(today);
-	weekFromNow.setDate(today.getDate() + 6); // 6 días después de hoy
+export const load = async ({ locals }) => {
+	const admin = locals.user?.admin;
 
-	try {
-		const mongoClient = await client.connect();
-		const db = mongoClient.db('nirvana');
-		const appointmentsCollection = db.collection('appointments');
-		const weeklySlots = await appointmentsCollection
-			.find(
-				{
-					date: {
-						$gte: today.toISOString().split('T')[0],
-						$lte: weekFromNow.toISOString().split('T')[0]
-					}
-				},
-				{ projection: { _id: 0 } }
-			)
-			.sort({ date: 1 })
-			.toArray();
+	const mongoClient = await client.connect();
+	const db = mongoClient.db('nirvana');
 
-		const result = {};
-		for (let i = 0; i <= 6; i++) {
-			const currentDate = new Date(today);
-			currentDate.setDate(today.getDate() + i);
-			const formattedDate = currentDate.toISOString().split('T')[0];
+	const startDate = new Date();
+	const daysInWeek = Array.from({ length: 6 }, (_, i) => {
+		const date = new Date(startDate);
+		date.setDate(startDate.getDate() + i);
+		return date.toISOString().split('T')[0];
+	});
 
-			// Asignar las citas del día correspondiente
-			result[`day${i + 1}`] = weeklySlots.filter((slot) => slot.date === formattedDate);
+	const appointments = await db
+		.collection('appointments')
+		.find({ day: { $in: daysInWeek } })
+		.toArray();
+
+	const week = daysInWeek.reduce((acc, day) => {
+		acc[day] = {};
+		const appointment = appointments.find((a) => a.day === day);
+		if (appointment) {
+			appointment.slots.forEach((slot) => {
+				// Si no es admin, no incluir la información del cliente
+				acc[day][slot?.hour] = admin ? slot?.client : true; // `true` indica que está ocupado
+			});
 		}
+		return acc;
+	}, {});
 
-		return result;
-	} catch (e) {
-		console.log(e);
+	client.close();
+
+	return {
+		admin,
+		week,
+		daysInWeek
+	};
+};
+
+export const actions = {
+	default: async ({ request }) => {
+		const data = await request.formData();
+		const day = data.get('day');
+		const hour = parseInt(data.get('hour'));
+		const name = data.get('name');
+		const phone = data.get('phone');
+
+		try {
+			const mongoClient = await client.connect();
+			const db = mongoClient.db('nirvana');
+			const orders = db.collection('appointments');
+			const filter = { day };
+			const newSlot = { hour, client: { name, phone } };
+			const updateDoc = {
+				$push: {
+					slots: newSlot
+				}
+			};
+			const options = { upsert: true };
+
+			const result = await orders.updateOne(filter, updateDoc, options);
+			console.log(
+				`${result.matchedCount} document(s) matched the filter, updated ${result.modifiedCount} document(s)`
+			);
+		} catch (error) {
+			console.log(error);
+		}
 	}
 };
