@@ -1,6 +1,7 @@
 <script>
 	import { products } from '$lib/utils/products';
 	import { addToCart } from '$lib/utils/cart.svelte.js';
+	import { checkout } from '$lib/utils/checkout.svelte.js';
 </script>
 
 <div class="m-8">
@@ -23,6 +24,9 @@
 					<div class="card-actions justify-end">
 						<button onclick={() => addToCart(i, product)} class="btn btn-primary"
 							>Add to cart</button
+						>
+						<button onclick={() => (checkout.service = product.name)} class="btn"
+							><a href="/citas"> comprar</a></button
 						>
 					</div>
 				</div>

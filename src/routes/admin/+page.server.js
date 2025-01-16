@@ -38,7 +38,6 @@ export const actions = {
 	default: async ({ request }) => {
 		const data = await request.formData();
 		const orderId = data.get('orderId');
-		console.log('order id: ', orderId);
 		const objectId = new ObjectId(orderId);
 
 		try {

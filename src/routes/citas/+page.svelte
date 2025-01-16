@@ -1,4 +1,6 @@
 <script>
+	import { checkout } from '$lib/utils/checkout.svelte.js';
+
 	let { data } = $props();
 	const week = data.week;
 	const daysInWeek = data.daysInWeek;
@@ -8,26 +10,53 @@
 	let activeForm = $state(null);
 	let selectedAppointment = $state(null);
 	let showModal = $state(false);
+	let isEditing = $state(false);
+
+	// Estado para el formulario de edición
+	let editForm = $state({
+		clientName: '',
+		clientPhone: ''
+	});
 
 	// Función para mostrar el modal con el formulario
 	function showForm(day, hour) {
-		activeForm = `${day}-${hour}`;
+		activeForm = `${day}/${hour}`;
 		showModal = true;
+		isEditing = false;
 	}
 
 	// Función para mostrar detalles de la cita
 	function showAppointmentDetails(appointment, day, hour) {
+		if (!data.admin) return; // Solo admins pueden ver detalles de citas existentes
 		selectedAppointment = { ...appointment, day, hour };
 		showModal = true;
+		isEditing = false;
+		// Inicializar el formulario de edición con los valores actuales
+		editForm = {
+			name: appointment.name,
+			phone: appointment.phone
+		};
 	}
 
-	// Función para cerrar el modal
 	function closeModal() {
 		showModal = false;
 		activeForm = null;
 		selectedAppointment = null;
+		isEditing = false;
 	}
+
+	function enableEditing() {
+		if (!data.admin) return; // Solo admins pueden editar
+		isEditing = true;
+	}
+
+	const checkoutAppointment = (date, hour) => {
+		checkout.date = date;
+		checkout.hour = hour;
+	};
 </script>
+
+<p>servicio elegido: {checkout.service}</p>
 
 <div class="grid grid-cols-7 gap-1 p-2 text-xs md:gap-2 md:p-4 md:text-base lg:m-8">
 	<div></div>
@@ -44,14 +73,16 @@
 		<div class="text-center font-bold">{hour}:00</div>
 		{#each daysInWeek as day}
 			<div
-				class={`border border-gray-300 p-1 text-center md:p-2 ${
+				class={`min-h-16 border border-gray-300 p-1 text-center md:p-2 ${
 					!week[day]?.[hour] ? 'cursor-pointer bg-green-400' : 'bg-red-400'
 				}`}
-				title={`Fecha: ${day}, Hora: ${hour}:00`}
+				title={!week[day]?.[hour] ? `Fecha: ${day}, Hora: ${hour}:00` : ''}
 				role={!week[day]?.[hour] ? 'button' : null}
 				onclick={!week[day]?.[hour]
 					? () => showForm(day, hour)
-					: () => showAppointmentDetails(week[day][hour], day, hour)}
+					: data.admin
+						? () => showAppointmentDetails(week[day][hour], day, hour)
+						: null}
 			>
 				{#if week[day]?.[hour] && data.admin}
 					<div class="hidden md:block">
@@ -70,32 +101,95 @@
 		<div class="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-4 shadow-xl">
 			<div class="mb-4 flex justify-between">
 				<h2 class="text-xl font-bold">
-					{selectedAppointment ? 'Detalles de la Cita' : 'Nueva Cita'}
+					{selectedAppointment ? (isEditing ? 'Editar Cita' : 'Detalles de la Cita') : 'Nueva Cita'}
 				</h2>
 				<button onclick={closeModal} class="rounded-full p-1 hover:bg-gray-200" aria-label="Cerrar">
 					✕
 				</button>
 			</div>
 
-			{#if selectedAppointment}
-				<div class="space-y-4">
+			{#if selectedAppointment && data.admin}
+				<form method="post" action="?/update" class="space-y-4">
+					<input type="hidden" name="id" value={selectedAppointment.id} />
+					<input type="hidden" name="date" value={selectedAppointment.day} />
+					<input type="hidden" name="hour" value={selectedAppointment.hour} />
+
 					<div>
-						<p class="font-bold">Nombre:</p>
-						<p>{selectedAppointment.name}</p>
+						<label for="edit-name" class="block font-bold">Nombre</label>
+						{#if isEditing}
+							<input
+								id="edit-name"
+								name="name"
+								type="text"
+								class="w-full rounded border p-2"
+								bind:value={editForm.name}
+								required
+							/>
+						{:else}
+							<p class="p-2">{selectedAppointment.name}</p>
+						{/if}
 					</div>
+
 					<div>
-						<p class="font-bold">Teléfono:</p>
-						<p>{selectedAppointment.phone}</p>
+						<label for="edit-phone" class="block font-bold">Teléfono</label>
+						{#if isEditing}
+							<input
+								id="edit-phone"
+								name="phone"
+								type="tel"
+								class="w-full rounded border p-2"
+								bind:value={editForm.phone}
+								required
+							/>
+						{:else}
+							<p class="p-2">{selectedAppointment.phone}</p>
+						{/if}
 					</div>
+
 					<div>
 						<p class="font-bold">Fecha:</p>
-						<p>
+						<p class="p-2">
 							{new Date(selectedAppointment.day).toLocaleDateString()} - {selectedAppointment.hour}:00
 						</p>
 					</div>
-				</div>
-			{:else}
-				<form method="post" class="space-y-4">
+
+					{#if isEditing}
+						<div class="flex gap-2">
+							<button
+								type="submit"
+								class="flex-1 rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
+							>
+								Guardar Cambios
+							</button>
+							<button
+								type="button"
+								onclick={() => (isEditing = false)}
+								class="flex-1 rounded border border-gray-300 p-2 hover:bg-gray-100"
+							>
+								Cancelar
+							</button>
+						</div>
+					{:else}
+						<div class="flex gap-2">
+							<button
+								type="button"
+								onclick={enableEditing}
+								class="flex-1 rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
+							>
+								Editar
+							</button>
+							<button
+								type="submit"
+								class="flex-1 rounded bg-red-500 p-2 text-white hover:bg-red-600"
+								formaction="?/delete"
+							>
+								Eliminar
+							</button>
+						</div>
+					{/if}
+				</form>
+			{:else if !selectedAppointment}
+				<form method="post" action="?/create" class="space-y-4">
 					<div>
 						<label for="name" class="block font-bold">Nombre</label>
 						<input id="name" name="name" type="text" class="w-full rounded border p-2" required />
@@ -106,13 +200,18 @@
 						<input id="phone" name="phone" type="tel" class="w-full rounded border p-2" required />
 					</div>
 
-					<input type="hidden" name="day" value={activeForm?.split('-')[0]} />
-					<input type="hidden" name="hour" value={activeForm?.split('-')[1]} />
+					<input type="hidden" name="date" value={activeForm?.split('/')[0]} />
+					<input type="hidden" name="hour" value={activeForm?.split('/')[1]} />
 
-					<button type="submit" class="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600">
-						Guardar
+					<button type="submit" class="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
+						>guardar
 					</button>
 				</form>
+				<button
+					class="btn"
+					onclick={() => checkoutAppointment(activeForm?.split('/')[0], activeForm?.split('/')[1])}
+					><a href="/checkout"> Go to checkout</a></button
+				>
 			{/if}
 		</div>
 	</div>
