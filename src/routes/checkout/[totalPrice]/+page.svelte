@@ -1,5 +1,4 @@
 <script>
-	import { page } from '$app/stores';
 	import { cart } from '$lib/utils/cart.svelte.js';
 
 	let { data } = $props();

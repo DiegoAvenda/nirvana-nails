@@ -19,19 +19,11 @@ export async function POST({ request }) {
 
 	if (event.type === 'checkout.session.completed') {
 		const charge = event.data.object;
-		const sessionId = charge.id;
 		const customerId = charge.metadata.customerId;
-		const location = JSON.parse(charge.metadata.location);
-		const address = charge.customer_details.address;
-
-		const lineItems = await stripe.checkout.sessions.listLineItems(sessionId);
-
-		const items = lineItems.data.map((item) => ({
-			name: item.description || 'Unknown product',
-			quantity: item.quantity,
-			total: item.amount_total
-		}));
-		const totalPrice = charge.amount_total;
+		const date = JSON.parse(charge.metadata.date);
+		const hour = JSON.parse(charge.metadata.hour);
+		const phone = JSON.parse(charge.metadata.phone);
+		const service = JSON.parse(charge.metadata.service);
 
 		try {
 			const mongoClient = await client.connect();
@@ -41,20 +33,19 @@ export async function POST({ request }) {
 			const user = await users.findOne(query);
 			const customerName = user.name;
 
-			const orders = db.collection('orders');
+			const appointments = db.collection('appointments');
 
-			await orders.insertOne({
+			const appointment = await appointments.insertOne({
 				customerId,
 				customerName,
-				address,
-				location,
-				items,
-				totalPrice,
-				createdAt: new Date(),
-				delivered: false,
-				prepared: false
+				date,
+				hour,
+				service,
+				phone,
+				createdAt: new Date()
 			});
-			console.log('orden creada');
+
+			console.log(`Nueva cita creada con id: ${appointment.insertedId}`);
 
 			notifUser(adminGoogleId, 'Tienes un nuevo pedido');
 

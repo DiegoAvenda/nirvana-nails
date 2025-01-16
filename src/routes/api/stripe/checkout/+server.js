@@ -5,27 +5,19 @@ const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 export const POST = async ({ request }) => {
 	const data = await request.json();
-	const items = data.items;
 	const customerId = data.customerId;
-	const location = data.location;
-
-	const line_items = items?.map((item) => {
-		return {
-			price_data: {
-				currency: 'usd',
-				product_data: {
-					name: item.name
-					//images: [item.image],
-				},
-				unit_amount: item.price
-			},
-			quantity: item.quantity
-		};
-	});
+	const date = data.date;
+	const hour = data.hour;
+	const service = data.service;
 
 	const session = await stripe.checkout.sessions.create({
-		line_items,
-		metadata: { customerId, location },
+		line_items: [
+			{
+				price: 'price_1QAEizEyhmyY5RoQZohbHNpo',
+				quantity: 2
+			}
+		],
+		metadata: { customerId, date, hour, service },
 		mode: 'payment',
 		success_url: 'https://nirvana-burgers.vercel.app/profile',
 		cancel_url: 'https://nirvana-burgers.vercel.app/cancel',

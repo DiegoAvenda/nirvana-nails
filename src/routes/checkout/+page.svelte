@@ -19,7 +19,6 @@
 			method: 'POST',
 			headers: { 'Content-Type': 'application/json' },
 			body: JSON.stringify({
-				items: cart,
 				customerId: data.customerId,
 				date: checkout.date,
 				hour: checkout.hour,

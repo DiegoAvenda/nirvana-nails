@@ -2,6 +2,8 @@
 	import { checkout } from '$lib/utils/checkout.svelte.js';
 
 	let { data } = $props();
+
+	let phone = $state('');
 	const week = data.week;
 	const daysInWeek = data.daysInWeek;
 	const hours = [9, 10, 11, 12, 13, 14];
@@ -50,9 +52,10 @@
 		isEditing = true;
 	}
 
-	const checkoutAppointment = (date, hour) => {
+	const checkoutAppointment = (date, hour, phone) => {
 		checkout.date = date;
 		checkout.hour = hour;
+		checkout.phone = phone;
 	};
 </script>
 
@@ -197,7 +200,14 @@
 
 					<div>
 						<label for="phone" class="block font-bold">Teléfono</label>
-						<input id="phone" name="phone" type="tel" class="w-full rounded border p-2" required />
+						<input
+							bind:value={phone}
+							id="phone"
+							name="phone"
+							type="tel"
+							class="w-full rounded border p-2"
+							required
+						/>
 					</div>
 
 					<input type="hidden" name="date" value={activeForm?.split('/')[0]} />
