@@ -2,9 +2,6 @@ import Stripe from 'stripe';
 import client from '$lib/server/db.js';
 import { STRIPE_SECRET_KEY, STRIPE_WEBHOOK_SECRET } from '$env/static/private';
 import { json } from '@sveltejs/kit';
-import { notifUser } from '$lib/server/push-subscription';
-
-const adminGoogleId = '100935988500638449773';
 
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 
@@ -46,8 +43,6 @@ export async function POST({ request }) {
 			});
 
 			console.log(`Nueva cita creada con id: ${appointment.insertedId}`);
-
-			//notifUser(adminGoogleId, 'Tienes un nuevo pedido');
 
 			//revalidatePath("/")
 			//return { successMsg: "order created" }
