@@ -3,7 +3,6 @@
 
 	let { data } = $props();
 
-	let phone = $state('');
 	const week = data.week;
 	const daysInWeek = data.daysInWeek;
 	const hours = [9, 10, 11, 12, 13, 14];
@@ -192,35 +191,11 @@
 					{/if}
 				</form>
 			{:else if !selectedAppointment}
-				<form method="post" action="?/create" class="space-y-4">
-					<div>
-						<label for="name" class="block font-bold">Nombre</label>
-						<input id="name" name="name" type="text" class="w-full rounded border p-2" required />
-					</div>
-
-					<div>
-						<label for="phone" class="block font-bold">Teléfono</label>
-						<input
-							bind:value={phone}
-							id="phone"
-							name="phone"
-							type="tel"
-							class="w-full rounded border p-2"
-							required
-						/>
-					</div>
-
-					<input type="hidden" name="date" value={activeForm?.split('/')[0]} />
-					<input type="hidden" name="hour" value={activeForm?.split('/')[1]} />
-
-					<button type="submit" class="w-full rounded bg-blue-500 p-2 text-white hover:bg-blue-600"
-						>guardar
-					</button>
-				</form>
+				Aparta este horario con $100 descontables al precio de su servicio
 				<button
 					class="btn"
 					onclick={() => checkoutAppointment(activeForm?.split('/')[0], activeForm?.split('/')[1])}
-					><a href="/checkout"> Go to checkout</a></button
+					><a href="/checkout"> Apartar cita</a></button
 				>
 			{/if}
 		</div>

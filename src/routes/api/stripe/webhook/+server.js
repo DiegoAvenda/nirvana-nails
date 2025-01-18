@@ -20,10 +20,10 @@ export async function POST({ request }) {
 	if (event.type === 'checkout.session.completed') {
 		const charge = event.data.object;
 		const customerId = charge.metadata.customerId;
-		const date = JSON.parse(charge.metadata.date);
-		const hour = JSON.parse(charge.metadata.hour);
-		const phone = JSON.parse(charge.metadata.phone);
-		const service = JSON.parse(charge.metadata.service);
+		const date = charge.metadata.date;
+		const hour = charge.metadata.hour;
+		const phone = charge.customer_details?.phone;
+		const service = charge.metadata.service;
 
 		try {
 			const mongoClient = await client.connect();
@@ -31,13 +31,13 @@ export async function POST({ request }) {
 			const users = db.collection('users');
 			const query = { googleId: customerId };
 			const user = await users.findOne(query);
-			const customerName = user.name;
+			const name = user.name;
 
 			const appointments = db.collection('appointments');
 
 			const appointment = await appointments.insertOne({
 				customerId,
-				customerName,
+				name,
 				date,
 				hour,
 				service,
@@ -47,7 +47,7 @@ export async function POST({ request }) {
 
 			console.log(`Nueva cita creada con id: ${appointment.insertedId}`);
 
-			notifUser(adminGoogleId, 'Tienes un nuevo pedido');
+			//notifUser(adminGoogleId, 'Tienes un nuevo pedido');
 
 			//revalidatePath("/")
 			//return { successMsg: "order created" }

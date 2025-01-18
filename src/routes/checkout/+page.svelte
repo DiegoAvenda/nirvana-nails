@@ -3,6 +3,8 @@
 
 	let { data } = $props();
 
+	let priceInPerson = $derived(checkout.price - 100);
+
 	//let totalPrice = $page.params.totalPrice;
 	let toggleCheckout = $state(false);
 
@@ -21,7 +23,8 @@
 				customerId: data.customerId,
 				date: checkout.date,
 				hour: checkout.hour,
-				service: checkout.service
+				service: checkout.service,
+				phone: checkout.phone
 			})
 		})
 			.then((data) => {
@@ -35,9 +38,13 @@
 
 <h1>checkout page</h1>
 
-<p>service: {checkout.service}</p>
 <p>date: {checkout.date}</p>
 <p>hour: {checkout.hour}</p>
+<p>service: {checkout.service}</p>
+<p>precio de servicio: ${checkout.price}</p>
+<p>Precio de apartado de cita: $100</p>
+
+<p>Precio restante por pagar en persona: ${priceInPerson}</p>
 
 <div class="m-6 flex justify-center">
 	<div class="card bg-base-100 shadow-xl">

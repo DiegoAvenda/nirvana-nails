@@ -1,11 +1,13 @@
 import Stripe from 'stripe';
 import { STRIPE_SECRET_KEY } from '$env/static/private';
+import { dev } from '$app/environment';
 
 const stripe = new Stripe(STRIPE_SECRET_KEY);
 
 export const POST = async ({ request }) => {
 	const data = await request.json();
 	const customerId = data.customerId;
+	const phone = data.phone;
 	const date = data.date;
 	const hour = data.hour;
 	const service = data.service;
@@ -13,14 +15,15 @@ export const POST = async ({ request }) => {
 	const session = await stripe.checkout.sessions.create({
 		line_items: [
 			{
-				price: 'prod_RbHdjhxhbNo3cM',
-				quantity: 2
+				price: 'price_1Qi54E4hJ03qO4S1cYFLCipt',
+				quantity: 1
 			}
 		],
-		metadata: { customerId, date, hour, service },
+		metadata: { customerId, date, hour, service, phone },
 		mode: 'payment',
-		success_url: 'https://nirvana-burgers.vercel.app/profile',
-		cancel_url: 'https://nirvana-burgers.vercel.app/cancel',
+		phone_number_collection: { enabled: true },
+		success_url: dev ? 'http://localhost:5173/citas' : 'https://nirvana-burgers.vercel.app',
+		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-burgers.vercel.app/cancel',
 		shipping_address_collection: {
 			allowed_countries: ['US', 'MX']
 		}

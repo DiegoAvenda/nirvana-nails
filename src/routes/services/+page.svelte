@@ -1,6 +1,11 @@
 <script>
 	import { products } from '$lib/utils/products';
 	import { checkout } from '$lib/utils/checkout.svelte.js';
+
+	const serviceInfo = (service, price) => {
+		checkout.service = service;
+		checkout.price = price;
+	};
 </script>
 
 <div class="m-8">
@@ -21,7 +26,7 @@
 					</h2>
 					<p>${product.price}</p>
 					<div class="card-actions justify-end">
-						<button onclick={() => (checkout.service = product.name)} class="btn"
+						<button onclick={() => serviceInfo(product.name, product.price)} class="btn"
 							><a href="/citas"> comprar</a></button
 						>
 					</div>

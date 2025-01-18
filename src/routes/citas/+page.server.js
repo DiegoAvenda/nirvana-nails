@@ -43,32 +43,6 @@ export const load = async ({ locals }) => {
 };
 
 export const actions = {
-	create: async ({ request }) => {
-		const data = await request.formData();
-		const date = data.get('date');
-		const hour = parseInt(data.get('hour'));
-		const name = data.get('name');
-		const phone = data.get('phone');
-
-		try {
-			const mongoClient = await client.connect();
-			const db = mongoClient.db('nirvana');
-			const appointments = db.collection('appointments');
-
-			const result = await appointments.insertOne({
-				date,
-				hour,
-				name,
-				phone,
-				createdAt: new Date()
-			});
-
-			console.log(`Nueva cita creada con id: ${result.insertedId}`);
-		} catch (error) {
-			console.error('Error al crear la cita:', error);
-			throw error;
-		}
-	},
 	delete: async ({ request }) => {
 		const data = await request.formData();
 		const id = data.get('id');

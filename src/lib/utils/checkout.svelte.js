@@ -3,5 +3,5 @@ export let checkout = $state({
 	date: '',
 	hour: '',
 	service: '',
-	phone: ''
+	price: 0
 });
