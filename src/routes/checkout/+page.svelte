@@ -56,7 +56,9 @@
 				<button onclick={() => stripeCheckout()} class="btn btn-primary">Go to checkout</button>
 			</div>
 			{#if toggleCheckout}
-				<span class="font-medium text-red-500">Autenticate primero</span>
+				<span class="font-medium text-red-500"
+					>Autenticate primero <a href="/login">Ir a login</a></span
+				>
 			{/if}
 		</div>
 	</div>

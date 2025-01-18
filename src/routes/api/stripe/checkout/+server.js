@@ -22,8 +22,8 @@ export const POST = async ({ request }) => {
 		metadata: { customerId, date, hour, service, phone },
 		mode: 'payment',
 		phone_number_collection: { enabled: true },
-		success_url: dev ? 'http://localhost:5173/citas' : 'https://nirvana-burgers.vercel.app',
-		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-burgers.vercel.app/cancel',
+		success_url: dev ? 'http://localhost:5173/citas' : 'hhttps://nirvana-nails.vercel.app/citas',
+		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-nails.vercel.app/cancel',
 		shipping_address_collection: {
 			allowed_countries: ['US', 'MX']
 		}
