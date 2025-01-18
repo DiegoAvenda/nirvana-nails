@@ -51,14 +51,15 @@
 		isEditing = true;
 	}
 
-	const checkoutAppointment = (date, hour, phone) => {
+	const checkoutAppointment = (date, hour) => {
 		checkout.date = date;
 		checkout.hour = hour;
-		checkout.phone = phone;
 	};
 </script>
 
-<p>servicio elegido: {checkout.service}</p>
+{#if checkout.service != ''}
+	<p>servicio elegido: {checkout.service}</p>
+{/if}
 
 <div class="grid grid-cols-7 gap-1 p-2 text-xs md:gap-2 md:p-4 md:text-base lg:m-8">
 	<div></div>
@@ -191,12 +192,17 @@
 					{/if}
 				</form>
 			{:else if !selectedAppointment}
-				Aparta este horario con $100 descontables al precio de su servicio
-				<button
-					class="btn"
-					onclick={() => checkoutAppointment(activeForm?.split('/')[0], activeForm?.split('/')[1])}
-					><a href="/checkout"> Apartar cita</a></button
-				>
+				{#if checkout.service === ''}
+					<p>Selecciona un servicio primero <a href="/services" class="link">Ir a servicios</a></p>
+				{:else}
+					Aparta este horario con $100 descontables al precio de su servicio
+					<button
+						class="btn"
+						onclick={() =>
+							checkoutAppointment(activeForm?.split('/')[0], activeForm?.split('/')[1])}
+						><a href="/checkout"> Apartar cita</a></button
+					>
+				{/if}
 			{/if}
 		</div>
 	</div>

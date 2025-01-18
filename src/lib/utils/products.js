@@ -1,7 +1,7 @@
 export const products = [
 	{
 		name: 'Ojo de gato',
-		price: 98,
+		price: 200,
 		image: '/images/ojo_gato.jpg',
 		description:
 			'Mollit anim consectetur adipisicing aute pariatur ad mollit ad. Officia amet aliqua non laborum dolore sint sit eu sit sunt laboris. Dolor tempor ipsum culpa Lorem ipsum ullamco ullamco dolor sit do. Do proident quis ad laborum et proident laborum. Non voluptate eiusmod aute labore ea aute.',
@@ -17,7 +17,7 @@ export const products = [
 	},
 	{
 		name: 'Espejo plata',
-		price: 181,
+		price: 250,
 		image: '/images/silver.jpg',
 		description:
 			'Mollit anim consectetur adipisicing aute pariatur ad mollit ad. Officia amet aliqua non laborum dolore sint sit eu sit sunt laboris. Dolor tempor ipsum culpa Lorem ipsum ullamco ullamco dolor sit do. Do proident quis ad laborum et proident laborum. Non voluptate eiusmod aute labore ea aute.',

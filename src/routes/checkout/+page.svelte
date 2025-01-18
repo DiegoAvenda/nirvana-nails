@@ -36,24 +36,27 @@
 	}
 </script>
 
-<h1>checkout page</h1>
+<h1 class="my-4 text-center text-3xl font-bold">Checkout Page</h1>
 
-<p>date: {checkout.date}</p>
-<p>hour: {checkout.hour}</p>
-<p>service: {checkout.service}</p>
-<p>precio de servicio: ${checkout.price}</p>
-<p>Precio de apartado de cita: $100</p>
-
-<p>Precio restante por pagar en persona: ${priceInPerson}</p>
+<div class="space-y-2 p-4">
+	<p class="text-lg"><span class="font-semibold">Date:</span> {checkout.date}</p>
+	<p class="text-lg"><span class="font-semibold">Hour:</span> {checkout.hour}</p>
+	<p class="text-lg"><span class="font-semibold">Service:</span> {checkout.service}</p>
+	<p class="text-lg"><span class="font-semibold">Precio de servicio:</span> ${checkout.price}</p>
+	<p class="text-lg"><span class="font-semibold">Precio de apartado de cita:</span> $100</p>
+	<p class="text-lg">
+		<span class="font-semibold">Precio restante por pagar en persona:</span> ${priceInPerson}
+	</p>
+</div>
 
 <div class="m-6 flex justify-center">
 	<div class="card bg-base-100 shadow-xl">
-		<div class="card-body items-center text-center">
+		<div class="card-body items-center space-y-4 text-center">
 			<div class="card-actions">
 				<button onclick={() => stripeCheckout()} class="btn btn-primary">Go to checkout</button>
 			</div>
 			{#if toggleCheckout}
-				<span>autenticate primero</span>
+				<span class="font-medium text-red-500">Autenticate primero</span>
 			{/if}
 		</div>
 	</div>
