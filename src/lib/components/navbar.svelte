@@ -10,7 +10,7 @@
 	<div class="flex-1">
 		<a href="/" class="btn btn-ghost m-4 text-xl">Nirvana nails</a>
 		<a href="/services" class="btn btn-ghost text-xl">Servicios</a>
-		<a href="/citas" class="btn btn-ghost text-xl">Citas</a>
+		<a href="/contact" class="btn btn-ghost text-xl">Contacto</a>
 	</div>
 	<div class="flex-none">
 		<div class="dropdown dropdown-end">
