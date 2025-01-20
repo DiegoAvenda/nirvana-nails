@@ -3,10 +3,7 @@
 	let { userPicture, admin } = $props();
 </script>
 
-<div
-	class="navbar bg-base-100"
-	style="--tw-border-opacity: 1; border-bottom: 1px solid var(--fallback-b2, oklch(var(--b2) / var(--tw-border-opacity)));"
->
+<div class="navbar bg-base-100">
 	<div class="flex-1">
 		<a href="/" class="btn btn-ghost m-4 text-xl">Nirvana nails</a>
 		<a href="/services" class="btn btn-ghost text-xl">Servicios</a>
