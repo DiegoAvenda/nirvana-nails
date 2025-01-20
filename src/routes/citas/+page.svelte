@@ -58,7 +58,7 @@
 </script>
 
 {#if checkout.service != ''}
-	<p>servicio elegido: {checkout.service}</p>
+	<p class="m-3 text-lg">Servicio elegido: {checkout.service}</p>
 {/if}
 
 <div class="grid grid-cols-7 gap-1 p-2 text-xs md:gap-2 md:p-4 md:text-base lg:m-8">
@@ -101,7 +101,7 @@
 <!-- Modal -->
 {#if showModal}
 	<div class="fixed inset-0 z-50 flex items-center justify-center bg-black bg-opacity-50 p-4">
-		<div class="max-h-[90vh] w-full max-w-md overflow-y-auto rounded-lg bg-white p-4 shadow-xl">
+		<div class="max-h-[90vh] w-full max-w-sm overflow-y-auto rounded-lg bg-white p-4 shadow-xl">
 			<div class="mb-4 flex justify-between">
 				<h2 class="text-xl font-bold">
 					{selectedAppointment ? (isEditing ? 'Editar Cita' : 'Detalles de la Cita') : 'Nueva Cita'}
@@ -195,12 +195,11 @@
 				{#if checkout.service === ''}
 					<p>Selecciona un servicio primero <a href="/services" class="link">Ir a servicios</a></p>
 				{:else}
-					Aparta este horario con $100 descontables al precio de su servicio
 					<button
 						class="btn"
 						onclick={() =>
 							checkoutAppointment(activeForm?.split('/')[0], activeForm?.split('/')[1])}
-						><a href="/checkout"> Apartar cita</a></button
+						><a href="/checkout"> Agendar cita</a></button
 					>
 				{/if}
 			{/if}
