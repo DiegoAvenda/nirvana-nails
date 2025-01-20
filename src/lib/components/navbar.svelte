@@ -5,9 +5,9 @@
 
 <div class="navbar bg-base-100">
 	<div class="flex-1">
-		<a href="/" class="btn btn-ghost m-4 text-xl">Nirvana nails</a>
-		<a href="/services" class="btn btn-ghost text-xl">Servicios</a>
-		<a href="/contact" class="btn btn-ghost text-xl">Contacto</a>
+		<a href="/" class="btn btn-ghost mr-2 sm:mr-4 sm:text-xl">NIRVANA NAILS</a>
+		<a href="/services" class="btn btn-ghost sm:text-xl">SERVICIOS</a>
+		<a href="/contact" class="btn btn-ghost sm:text-xl">CONTACTO</a>
 	</div>
 	<div class="flex-none">
 		<div class="dropdown dropdown-end">
