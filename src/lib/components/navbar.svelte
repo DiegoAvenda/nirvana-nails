@@ -33,11 +33,11 @@
 				{:else}
 					<li>
 						<a href="/profile" class="justify-between">
-							Pending orders
+							Mis reservaciones
 							<span class="badge">New</span>
 						</a>
 					</li>
-					<li><a href="/profile/delivered" class="justify-between"> Delivered orders </a></li>
+					<li><a href="/profile/delivered" class="justify-between"> Mis compras </a></li>
 				{/if}
 				{#if !userPicture}
 					<li><a href="/api/oauth/google">Login</a></li>

@@ -23,10 +23,7 @@ export const POST = async ({ request }) => {
 		mode: 'payment',
 		phone_number_collection: { enabled: true },
 		success_url: dev ? 'http://localhost:5173/citas' : 'hhttps://nirvana-nails.vercel.app/citas',
-		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-nails.vercel.app/cancel',
-		shipping_address_collection: {
-			allowed_countries: ['US', 'MX']
-		}
+		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-nails.vercel.app/cancel'
 	});
 
 	return new Response(JSON.stringify({ url: session.url }), {

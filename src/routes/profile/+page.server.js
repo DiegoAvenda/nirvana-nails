@@ -1,12 +1,10 @@
 import { redirect } from '@sveltejs/kit';
 import client from '$lib/server/db.js';
 
-export const load = async ({ locals, url }) => {
+export const load = async ({ locals }) => {
 	if (!locals.user) {
 		return redirect(302, '/login');
 	}
-
-	const fromStripe = url.searchParams.get('from_stripe') === 'yes';
 
 	const username = locals.user.name;
 	const customerId = locals.user.googleId;
@@ -14,16 +12,16 @@ export const load = async ({ locals, url }) => {
 	try {
 		const mongoClient = await client.connect();
 		const db = mongoClient.db('nirvana');
-		const ordersCollection = db.collection('orders');
-		const query = { customerId, delivered: false };
+		const ordersCollection = db.collection('appointments');
+		const query = { customerId, attended: false };
 		const options = {
 			sort: { createdAt: -1 },
 			projection: { _id: 0 }
 		};
 
-		const rawOrders = await ordersCollection.find(query, options).toArray();
+		const rawAppointments = await ordersCollection.find(query, options).toArray();
 
-		const orders = rawOrders.map((order) => ({
+		const appointments = rawAppointments.map((order) => ({
 			...order,
 			createdAt: order.createdAt.toLocaleTimeString('en-US', {
 				month: '2-digit',
@@ -36,9 +34,8 @@ export const load = async ({ locals, url }) => {
 		}));
 
 		return {
-			orders,
-			username,
-			fromStripe
+			appointments,
+			username
 		};
 	} catch (e) {
 		console.log(e);
