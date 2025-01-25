@@ -12,35 +12,30 @@ export const load = async ({ locals }) => {
 	try {
 		const mongoClient = await client.connect();
 		const db = mongoClient.db('nirvana');
-		const ordersCollection = db.collection('orders');
-		const query = { customerId, delivered: true };
+		const ordersCollection = db.collection('appointments');
+		const query = { customerId, status: { $ne: 'reserved' } };
+
 		const options = {
-			sort: { deliveredAt: -1 },
+			sort: { createdAt: -1 },
 			projection: { _id: 0 }
 		};
 
-		const rawOrders = await ordersCollection.find(query, options).toArray();
+		const rawAppointments = await ordersCollection.find(query, options).toArray();
 
-		const orders = rawOrders.map((order) => ({
+		const appointments = rawAppointments.map((order) => ({
 			...order,
 			createdAt: order.createdAt.toLocaleTimeString('en-US', {
 				month: '2-digit',
 				day: '2-digit',
 				hour: '2-digit',
 				minute: '2-digit',
-				hour12: true
-			}),
-			deliveredAt: order.deliveredAt.toLocaleTimeString('en-US', {
-				month: '2-digit',
-				day: '2-digit',
-				hour: '2-digit',
-				minute: '2-digit',
-				hour12: true
+				hour12: true,
+				timeZone: 'America/Mexico_City'
 			})
 		}));
-
+		console.log(appointments);
 		return {
-			orders,
+			appointments,
 			username
 		};
 	} catch (e) {

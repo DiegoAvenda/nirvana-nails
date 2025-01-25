@@ -40,7 +40,7 @@ export async function POST({ request }) {
 				service,
 				phone,
 				createdAt: new Date(),
-				attended: false
+				status: 'reserved'
 			});
 
 			console.log(`Nueva cita creada con id: ${appointment.insertedId}`);

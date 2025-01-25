@@ -13,7 +13,8 @@ export const load = async ({ locals }) => {
 		const mongoClient = await client.connect();
 		const db = mongoClient.db('nirvana');
 		const ordersCollection = db.collection('appointments');
-		const query = { customerId, attended: false };
+		const query = { customerId, status: 'reserved' };
+
 		const options = {
 			sort: { createdAt: -1 },
 			projection: { _id: 0 }
