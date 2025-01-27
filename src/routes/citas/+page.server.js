@@ -2,22 +2,23 @@ import client from '$lib/server/db.js';
 import { ObjectId } from 'mongodb';
 
 export const load = async ({ locals }) => {
-	const admin = locals.user?.admin;
+	let admin = locals.user?.admin;
+	const startDate = new Date();
+	const endDate = new Date();
+	endDate.setDate(startDate.getDate() + 7);
+
+	let daysInWeek;
 
 	const mongoClient = await client.connect();
 	const db = mongoClient.db('nirvana');
 
-	const startDate = new Date();
-	const daysInWeek = Array.from({ length: 6 }, (_, i) => {
-		const date = new Date(startDate);
-		date.setDate(startDate.getDate() + i);
-		return date.toISOString().split('T')[0];
-	});
-
 	const appointments = await db
 		.collection('appointments')
 		.find({
-			date: { $in: daysInWeek }
+			date: {
+				$gte: startDate,
+				$lt: endDate
+			}
 		})
 		.toArray();
 

@@ -1,10 +1,16 @@
 <script>
 	import { checkout } from '$lib/utils/checkout.svelte.js';
 
-	let { data } = $props();
+	let { data, form } = $props();
 
-	const week = data.week;
-	const daysInWeek = data.daysInWeek;
+	let calendarColumns = $state(7);
+
+	if (data.admin) {
+		calendarColumns = 3;
+	}
+
+	const week = form?.week || data.week;
+	const daysInWeek = form?.daysInWeek || data.daysInWeek;
 	const hours = [9, 10, 11, 12, 13, 14];
 
 	// Control de modal y formulario activo
@@ -55,13 +61,27 @@
 		checkout.date = date;
 		checkout.hour = hour;
 	};
+
+	let adminView = $state('present');
+
+	const changeAdminView = (time) => {
+		adminView = time;
+	};
 </script>
 
 {#if checkout.service != ''}
 	<p class="m-3 text-lg">Servicio elegido: {checkout.service}</p>
 {/if}
 
-<div class="grid grid-cols-7 gap-1 p-2 text-xs md:gap-2 md:p-4 md:text-base lg:m-8">
+<div class="flex justify-center">
+	<form action="?/adminView" method="POST">
+		<input type="hidden" name="days" value={adminView} />
+		<button onclick={() => changeAdminView('past')} class="btn">Semana previa</button>
+		<button onclick={() => changeAdminView('present')} class="btn">Hoy y mañana</button>
+		<button onclick={() => changeAdminView('future')} class="btn">Semana futura</button>
+	</form>
+</div>
+<div class={'grid grid-cols-7 text-xs md:text-base'}>
 	<div></div>
 	{#each daysInWeek as day}
 		<div class="text-center font-bold">
@@ -73,10 +93,10 @@
 	{/each}
 
 	{#each hours as hour}
-		<div class="text-center font-bold">{hour}:00</div>
+		<div class="w-12 text-center font-bold">{hour}:00</div>
 		{#each daysInWeek as day}
 			<div
-				class={`min-h-16 border border-gray-300 p-1 text-center md:p-2 ${
+				class={`min-h-16 border border-gray-300 p-1 text-center ${
 					!week[day]?.[hour] ? 'cursor-pointer bg-green-400' : 'bg-red-400'
 				}`}
 				title={!week[day]?.[hour] ? `Fecha: ${day}, Hora: ${hour}:00` : ''}
