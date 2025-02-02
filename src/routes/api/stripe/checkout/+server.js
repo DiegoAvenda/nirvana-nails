@@ -9,7 +9,6 @@ export const POST = async ({ request }) => {
 	const customerId = data.customerId;
 	const phone = data.phone;
 	const date = data.date;
-	const hour = data.hour;
 	const service = data.service;
 
 	const session = await stripe.checkout.sessions.create({
@@ -19,7 +18,7 @@ export const POST = async ({ request }) => {
 				quantity: 1
 			}
 		],
-		metadata: { customerId, date, hour, service, phone },
+		metadata: { customerId, date, service, phone },
 		mode: 'payment',
 		phone_number_collection: { enabled: true },
 		success_url: dev ? 'http://localhost:5173/citas' : 'hhttps://nirvana-nails.vercel.app/citas',

@@ -18,7 +18,6 @@ export async function POST({ request }) {
 		const charge = event.data.object;
 		const customerId = charge.metadata.customerId;
 		const date = charge.metadata.date;
-		const hour = charge.metadata.hour;
 		const phone = charge.customer_details?.phone;
 		const service = charge.metadata.service;
 
@@ -36,7 +35,6 @@ export async function POST({ request }) {
 				customerId,
 				name,
 				date,
-				hour,
 				service,
 				phone,
 				createdAt: new Date(),

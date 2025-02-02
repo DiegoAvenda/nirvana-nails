@@ -22,7 +22,6 @@
 			body: JSON.stringify({
 				customerId: data.customerId,
 				date: checkout.date,
-				hour: checkout.hour,
 				service: checkout.service,
 				phone: checkout.phone
 			})
@@ -39,7 +38,7 @@
 <h1 class="my-4 text-center text-3xl font-bold">Checkout Page</h1>
 
 <div class="space-y-2 p-4">
-	<p class="text-lg"><span class="font-semibold">Cita:</span> {checkout.date} {checkout.hour}:00</p>
+	<p class="text-lg"><span class="font-semibold">Cita:</span> {checkout.date}</p>
 	<p class="text-lg"><span class="font-semibold">Servicio:</span> {checkout.service}</p>
 	<p class="text-lg"><span class="font-semibold">Precio de servicio:</span> ${checkout.price}</p>
 	<p class="text-lg"><span class="font-semibold">Ahora paga:</span> $100</p>

@@ -1,47 +1,49 @@
 import client from '$lib/server/db.js';
 import { ObjectId } from 'mongodb';
 
-export const load = async ({ locals }) => {
+export async function load({ locals }) {
 	let admin = locals.user?.admin;
-	const startDate = new Date();
-	const endDate = new Date();
+	const now = new Date();
+	const startDate = new Date(now.toLocaleString('en-US', { timeZone: 'America/Mexico_City' }));
+	startDate.setHours(now.getHours() + 1, 0, 0, 0);
+
+	const endDate = new Date(startDate);
 	endDate.setDate(startDate.getDate() + 7);
 
-	let daysInWeek;
+	try {
+		const mongoClient = await client.connect();
+		const db = mongoClient.db('nirvana');
+		const rawAppointments = await db
+			.collection('appointments')
+			.find({
+				date: {
+					$gte: startDate,
+					$lte: endDate
+				}
+			})
+			.toArray();
 
-	const mongoClient = await client.connect();
-	const db = mongoClient.db('nirvana');
+		const appointments = rawAppointments.map((a) =>
+			admin
+				? {
+						id: a._id.toString(),
+						date: a.date,
+						name: a.name
+					}
+				: {
+						date: a.date
+					}
+		);
 
-	const appointments = await db
-		.collection('appointments')
-		.find({
-			date: {
-				$gte: startDate,
-				$lt: endDate
-			}
-		})
-		.toArray();
-
-	const week = daysInWeek.reduce((acc, day) => {
-		acc[day] = {};
-		const dayAppointments = appointments.filter((a) => a.date === day);
-
-		dayAppointments.forEach((appointment) => {
-			// Si no es admin, solo indicamos que el slot está ocupado
-			acc[day][appointment.hour] = admin
-				? { name: appointment.name, phone: appointment.phone, id: appointment._id.toString() }
-				: true;
-		});
-
-		return acc;
-	}, {});
-
-	return {
-		admin,
-		week,
-		daysInWeek
-	};
-};
+		return {
+			appointments,
+			admin
+		};
+	} catch (error) {
+		console.error(error);
+		return { appointments: [] };
+	}
+}
 
 export const actions = {
 	delete: async ({ request }) => {
@@ -70,7 +72,7 @@ export const actions = {
 		const data = await request.formData();
 		const id = data.get('id');
 		const name = data.get('name');
-		const phone = data.get('phone');
+		//const phone = data.get('phone');
 		const objectId = new ObjectId(id);
 
 		try {
@@ -80,8 +82,8 @@ export const actions = {
 			const query = { _id: objectId };
 			const updateDoc = {
 				$set: {
-					name,
-					phone
+					name
+					//phone
 				}
 			};
 			const result = await appointments.updateOne(query, updateDoc);
