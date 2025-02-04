@@ -2,7 +2,7 @@ export const products = [
 	{
 		name: 'Ojo de gato',
 		price: 200,
-		image: '/images/ojo_gato.jpg',
+		image: '/images/beard/bald.jpg',
 		description:
 			'Mollit anim consectetur adipisicing aute pariatur ad mollit ad. Officia amet aliqua non laborum dolore sint sit eu sit sunt laboris. Dolor tempor ipsum culpa Lorem ipsum ullamco ullamco dolor sit do. Do proident quis ad laborum et proident laborum. Non voluptate eiusmod aute labore ea aute.',
 		slug: 'hertfoid-upholstered-chair'
@@ -10,7 +10,7 @@ export const products = [
 	{
 		name: 'Dipping',
 		price: 151,
-		image: '/images/dipping.jpg',
+		image: '/images/beard/mustache-beard.jpg',
 		description:
 			'Mollit anim consectetur adipisicing aute pariatur ad mollit ad. Officia amet aliqua non laborum dolore sint sit eu sit sunt laboris. Dolor tempor ipsum culpa Lorem ipsum ullamco ullamco dolor sit do. Do proident quis ad laborum et proident laborum. Non voluptate eiusmod aute labore ea aute.',
 		slug: 'bingdon-pholstered-chair-swivel'
@@ -18,7 +18,7 @@ export const products = [
 	{
 		name: 'Espejo plata',
 		price: 250,
-		image: '/images/silver.jpg',
+		image: '/images/beard/goatee.jpg',
 		description:
 			'Mollit anim consectetur adipisicing aute pariatur ad mollit ad. Officia amet aliqua non laborum dolore sint sit eu sit sunt laboris. Dolor tempor ipsum culpa Lorem ipsum ullamco ullamco dolor sit do. Do proident quis ad laborum et proident laborum. Non voluptate eiusmod aute labore ea aute.',
 		slug: 'jeses-minimore-modern-style-etta'
@@ -26,7 +26,7 @@ export const products = [
 	{
 		name: 'Rusa',
 		price: 181,
-		image: '/images/rusa.jpg',
+		image: '/images/beard/viking.webp',
 		description:
 			'Mollit anim consectetur adipisicing aute pariatur ad mollit ad. Officia amet aliqua non laborum dolore sint sit eu sit sunt laboris. Dolor tempor ipsum culpa Lorem ipsum ullamco ullamco dolor sit do. Do proident quis ad laborum et proident laborum. Non voluptate eiusmod aute labore ea aute.',
 		slug: 'jeses-minimore-modern-style-etta'

@@ -1,5 +1,5 @@
-<footer class="footer flex items-center justify-between bg-neutral p-4 text-neutral-content">
-	<p>Nirvana nails© {new Date().getFullYear()}</p>
+<footer class="footer flex items-center justify-between bg-base-200 p-4 text-neutral-content">
+	<p>Barber shop© {new Date().getFullYear()}</p>
 
 	<nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
 		<a href="https://www.x.com" aria-label="X icon">

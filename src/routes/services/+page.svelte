@@ -10,7 +10,7 @@
 
 <div class="m-8">
 	<div class="flex justify-center">
-		<h1 class="text-4xl font-bold">Menu</h1>
+		<h1 class="text-4xl font-bold">Haircuts</h1>
 	</div>
 	<div
 		class="m-9 flex flex-col items-center gap-2 md:grid md:grid-cols-2 lg:grid-cols-3 lg:justify-center"

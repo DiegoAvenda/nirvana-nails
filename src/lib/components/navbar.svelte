@@ -5,7 +5,7 @@
 
 <div class="navbar bg-base-100">
 	<div class="flex-1">
-		<a href="/" class="btn btn-ghost mr-2 sm:mr-4 sm:text-xl">NIRVANA NAILS</a>
+		<a href="/" class="btn btn-ghost mr-2 sm:mr-4 sm:text-xl">BARBER SHOP</a>
 		<a href="/services" class="btn btn-ghost sm:text-xl">SERVICIOS</a>
 		<a href="/contact" class="btn btn-ghost sm:text-xl">CONTACTO</a>
 	</div>
