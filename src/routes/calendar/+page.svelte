@@ -43,12 +43,24 @@
 	}
 </script>
 
-<div class="m-8">
+<div class="m-8 md:mx-24 lg:mx-36">
+	<div class="mb-4 flex items-center justify-center gap-8">
+		<div class="flex items-center gap-2">
+			<span>Available</span>
+			<div class="h-5 w-5 border border-black bg-white"></div>
+		</div>
+
+		<div class="flex items-center gap-2">
+			<span>Booked</span>
+			<div class="h-5 w-5 border border-white bg-black"></div>
+		</div>
+	</div>
+
 	<div class="mb-2 grid grid-cols-8">
-		<div class="border text-center font-semibold">Hora</div>
+		<div class="border text-center font-semibold">Hour</div>
 		{#each headerDates as date}
 			<div class="border text-center font-semibold">
-				{date.toLocaleDateString('es-ES', {
+				{date.toLocaleDateString('en-US', {
 					weekday: 'short',
 					day: '2-digit',
 					month: '2-digit'
@@ -64,16 +76,16 @@
 				{#if dates[day * 7 + (hour - 9)]}
 					{@const currentDate = dates[day * 7 + (hour - 9)]}
 					{@const hasAppointment = appointmentsMap.has(currentDate.getTime())}
-					<div class="border p-1 text-center" class:bg-red-400={hasAppointment}>
+					<div class="border p-1 text-center" class:bg-white={hasAppointment}>
 						<button
 							aria-label="appointment slot"
 							disabled={hasAppointment && !data.admin}
 							onclick={() => openModal(currentDate)}
 						>
 							{#if hasAppointment}
-								Reservado
+								<p></p>
 							{:else}
-								Libre
+								Free
 							{/if}
 						</button>
 					</div>

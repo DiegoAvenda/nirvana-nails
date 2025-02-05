@@ -6,8 +6,8 @@
 <div class="navbar bg-base-100">
 	<div class="flex-1">
 		<a href="/" class="btn btn-ghost mr-2 sm:mr-4 sm:text-xl">BARBER SHOP</a>
-		<a href="/services" class="btn btn-ghost sm:text-xl">SERVICIOS</a>
-		<a href="/contact" class="btn btn-ghost sm:text-xl">CONTACTO</a>
+		<a href="/services" class="btn btn-ghost sm:text-xl">SERVICES</a>
+		<a href="/contact" class="btn btn-ghost sm:text-xl">CONTACT</a>
 	</div>
 	<div class="flex-none">
 		<div class="dropdown dropdown-end">
@@ -33,11 +33,11 @@
 				{:else}
 					<li>
 						<a href="/profile" class="justify-between">
-							Mis reservaciones
+							Appointments
 							<span class="badge">New</span>
 						</a>
 					</li>
-					<li><a href="/profile/delivered" class="justify-between"> Mis compras </a></li>
+					<li><a href="/profile/delivered" class="justify-between"> Appointment History</a></li>
 				{/if}
 				{#if !userPicture}
 					<li><a href="/api/oauth/google">Login</a></li>

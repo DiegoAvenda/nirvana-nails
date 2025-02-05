@@ -39,7 +39,7 @@
 	</div>
 
 	<div class="flex justify-center">
-		<p class="text-xl font-bold">PRODUCTOS</p>
+		<p class="text-xl font-bold">PRODUCTS</p>
 	</div>
 	<div class="flex flex-col items-center gap-4 md:flex-row md:justify-center lg:mx-24">
 		{#each products as product}

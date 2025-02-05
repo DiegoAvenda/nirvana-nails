@@ -38,12 +38,12 @@
 <h1 class="my-4 text-center text-3xl font-bold">Checkout Page</h1>
 
 <div class="space-y-2 p-4">
-	<p class="text-lg"><span class="font-semibold">Cita:</span> {checkout.date}</p>
-	<p class="text-lg"><span class="font-semibold">Servicio:</span> {checkout.service}</p>
-	<p class="text-lg"><span class="font-semibold">Precio de servicio:</span> ${checkout.price}</p>
-	<p class="text-lg"><span class="font-semibold">Ahora paga:</span> $100</p>
+	<p class="text-lg"><span class="font-semibold">Appointment:</span> {checkout.date}</p>
+	<p class="text-lg"><span class="font-semibold">Service:</span> {checkout.service}</p>
+	<p class="text-lg"><span class="font-semibold">Service price:</span> ${checkout.price}</p>
+	<p class="text-lg"><span class="font-semibold">Pay now:</span> $100</p>
 	<p class="text-lg">
-		<span class="font-semibold">Restante por pagar en salon:</span> ${priceInPerson}
+		<span class="font-semibold">You'll pay at saloon:</span> ${priceInPerson}
 	</p>
 </div>
 
@@ -51,11 +51,11 @@
 	<div class="card bg-base-100 shadow-xl">
 		<div class="card-body items-center space-y-4 text-center">
 			<div class="card-actions">
-				<button onclick={() => stripeCheckout()} class="btn btn-primary">Proceder al pago</button>
+				<button onclick={() => stripeCheckout()} class="btn btn-primary">Proceed to Payment</button>
 			</div>
 			{#if toggleCheckout}
 				<span class="font-medium text-red-500"
-					>Autenticate primero <a href="/login">Ir a login</a></span
+					>Please authenticate first <a href="/login">Go to login</a></span
 				>
 			{/if}
 		</div>

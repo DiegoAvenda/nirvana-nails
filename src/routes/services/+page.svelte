@@ -27,7 +27,7 @@
 					<p>${product.price}</p>
 					<div class="card-actions justify-end">
 						<button onclick={() => serviceInfo(product.name, product.price)} class="btn"
-							><a href="/citas"> comprar</a></button
+							><a href="/calendar"> comprar</a></button
 						>
 					</div>
 				</div>
