@@ -26,15 +26,17 @@
 
 <div class="m-5 flex flex-col gap-6">
 	<div class="flex justify-center">
-		<p class="text-xl font-bold">SERVICES</p>
+		<a class="text-2xl font-bold" href="/services">Services</a>
 	</div>
 	<div class="flex flex-col items-center gap-4 md:flex-row md:justify-center lg:mx-24">
 		{#each services as service}
-			<img
-				src={service.image}
-				alt={service.name}
-				class="h-[28rem] w-[32rem] rounded-md object-cover md:h-56 md:w-56 lg:h-96 lg:w-96"
-			/>
+			<a href="/services">
+				<img
+					src={service.image}
+					alt={service.name}
+					class="h-[28rem] w-[32rem] rounded-md object-cover md:h-56 md:w-56 lg:h-96 lg:w-96"
+				/>
+			</a>
 		{/each}
 	</div>
 
