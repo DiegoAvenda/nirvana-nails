@@ -20,7 +20,7 @@
 			<div class="card card-bordered card-compact w-96 bg-base-100 shadow-xl">
 				<div class="card-body">
 					<div class="flex items-center justify-between">
-						<h2 class="card-title">Appointment: {appointment.date} - {appointment.hour}:00</h2>
+						<h2 class="card-title">Appointment: {appointment.date}</h2>
 					</div>
 					<p>Service: {appointment.service}</p>
 					<p>Service price: ${calculation.servicePrice}</p>
@@ -35,6 +35,6 @@
 	</div>
 
 	{#if data.appointments.length === 0}
-		<p class="m-8">No tienes citas reservadas</p>
+		<p class="m-8">You have no reserved appointments.</p>
 	{/if}
 </div>

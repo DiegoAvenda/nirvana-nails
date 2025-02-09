@@ -10,16 +10,16 @@
 			<div class="card card-bordered card-compact w-96 bg-base-100 shadow-xl">
 				<div class="card-body">
 					<div class="flex items-center justify-between">
-						<h2 class="card-title">Cita: {appointment.date} - {appointment.hour}:00</h2>
+						<h2 class="card-title">Appointment: {appointment.date}</h2>
 					</div>
 					<p>Servicio: {appointment.service}</p>
-					<p>{appointment.status}</p>
+					<p>Status: {appointment.status}</p>
 				</div>
 			</div>
 		{/each}
 	</div>
 
 	{#if data.appointments.length === 0}
-		<p class="m-8">No tienes citas reservadas</p>
+		<p class="m-8">You have no past appointments.</p>
 	{/if}
 </div>
