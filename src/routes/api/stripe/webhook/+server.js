@@ -17,9 +17,11 @@ export async function POST({ request }) {
 	if (event.type === 'checkout.session.completed') {
 		const charge = event.data.object;
 		const customerId = charge.metadata.customerId;
-		const date = charge.metadata.date;
+		const stringDate = charge.metadata.date;
 		const phone = charge.customer_details?.phone;
 		const service = charge.metadata.service;
+
+		const date = new Date(stringDate);
 
 		try {
 			const mongoClient = await client.connect();

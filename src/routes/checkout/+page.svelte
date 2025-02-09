@@ -5,7 +5,6 @@
 
 	let priceInPerson = $derived(checkout.price - 100);
 
-	//let totalPrice = $page.params.totalPrice;
 	let toggleCheckout = $state(false);
 
 	async function stripeCheckout() {
