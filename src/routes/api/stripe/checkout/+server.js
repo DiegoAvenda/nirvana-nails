@@ -23,7 +23,7 @@ export const POST = async ({ request }) => {
 		phone_number_collection: { enabled: true },
 		success_url: dev
 			? 'http://localhost:5173/calendar'
-			: 'hhttps://nirvana-nails.vercel.app/calendar',
+			: 'https://nirvana-nails.vercel.app/calendar',
 		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-nails.vercel.app/cancel'
 	});
 
