@@ -8,8 +8,6 @@
 	//let totalPrice = $page.params.totalPrice;
 	let toggleCheckout = $state(false);
 
-	//stripe checkout
-
 	async function stripeCheckout() {
 		if (data.customerId === null) {
 			toggleCheckout = true;

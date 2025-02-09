@@ -6,13 +6,11 @@
 	const today = new Date();
 	const hours = [9, 10, 11, 12, 13, 14, 15];
 
-	// Crear un Map para acceso O(1) a las citas
 	const appointmentsMap = new Map(data.appointments.map((app) => [app.date.getTime(), app]));
 
 	const now = new Date();
 	const today9am = now.setHours(9, 0, 0, 0);
 
-	// Generar las fechas y pre-calcular sus appointments
 	const dates = [];
 
 	for (let day = 0; day < 7; day++) {
@@ -98,7 +96,7 @@
 <dialog bind:this={modalElement} class="modal">
 	<div class="modal-box">
 		{#if selectedAppointment}
-			<h3 class="text-lg font-bold">Cita Reservada</h3>
+			<h3 class="text-lg font-bold">Booked</h3>
 			{#if editing}
 				<form action="?/update" method="post">
 					<input type="hidden" value={selectedAppointment.id} name="id" />
@@ -109,34 +107,32 @@
 						value={selectedAppointment.name}
 						required
 					/>
-					<button class="btn">Editar</button>
+					<button class="btn">Edit</button>
 				</form>
 			{:else}
 				<p class="py-4">
-					Esta cita está reservada para: <span class="font-semibold"
-						>{selectedAppointment.name}</span
-					>
+					Booked by: <span class="font-semibold">{selectedAppointment.name}</span>
 				</p>
 			{/if}
 			{#if !editing}
-				<button onclick={() => editingToggle()} class="btn">Editar</button>
+				<button onclick={() => editingToggle()} class="btn">Edit</button>
 			{/if}
 			<form action="?/delete" method="post">
 				<input type="hidden" value={selectedAppointment.id} name="id" />
-				<button class="btn">Eliminar</button>
+				<button class="btn">Delete</button>
 			</form>
 			<div class="modal-action">
 				<form method="dialog">
-					<button class="btn">Cerrar</button>
+					<button class="btn">Close</button>
 				</form>
 			</div>
 		{:else}
-			<h3 class="text-lg font-bold">Reservar cita</h3>
-			<p class="py-4">Confirma que quieres reservar esta cita</p>
+			<h3 class="text-lg font-bold">Booking</h3>
+			<p class="py-4">Confirm your appointment booking</p>
 			<div class="modal-action">
-				<a class="btn" href="/checkout">Reservar</a>
+				<a class="btn" href="/checkout">Book</a>
 				<form method="dialog">
-					<button class="btn">Cerrar</button>
+					<button class="btn">Close</button>
 				</form>
 			</div>
 		{/if}

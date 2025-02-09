@@ -21,7 +21,9 @@ export const POST = async ({ request }) => {
 		metadata: { customerId, date, service, phone },
 		mode: 'payment',
 		phone_number_collection: { enabled: true },
-		success_url: dev ? 'http://localhost:5173/citas' : 'hhttps://nirvana-nails.vercel.app/citas',
+		success_url: dev
+			? 'http://localhost:5173/calendar'
+			: 'hhttps://nirvana-nails.vercel.app/calendar',
 		cancel_url: dev ? 'http://localhost:5173/cancel' : 'https://nirvana-nails.vercel.app/cancel'
 	});
 
