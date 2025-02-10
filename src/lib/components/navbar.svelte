@@ -32,10 +32,7 @@
 					<li><a href="/admin/delivered" class="justify-between"> Admin delivered orders </a></li>
 				{:else}
 					<li>
-						<a href="/profile" class="justify-between">
-							Appointments
-							<span class="badge">New</span>
-						</a>
+						<a href="/profile" class="justify-between"> Appointments </a>
 					</li>
 					<li><a href="/profile/delivered" class="justify-between"> Appointment History</a></li>
 				{/if}

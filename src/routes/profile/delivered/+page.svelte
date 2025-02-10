@@ -3,7 +3,7 @@
 </script>
 
 <div class="mt-6 flex flex-col items-center">
-	<h1 class="flex justify-center text-3xl font-bold">Mis citas previas</h1>
+	<h1 class="flex justify-center text-3xl font-bold">My previous appointments</h1>
 
 	<div class="my-6 flex flex-col items-center gap-1">
 		{#each data.appointments as appointment}
@@ -12,8 +12,8 @@
 					<div class="flex items-center justify-between">
 						<h2 class="card-title">Appointment: {appointment.date}</h2>
 					</div>
-					<p>Servicio: {appointment.service}</p>
-					<p>Status: {appointment.status}</p>
+					<p>Service: <span class="font-bold">{appointment.service}</span></p>
+					<p>Status: <span class="font-bold">{appointment.status}</span></p>
 				</div>
 			</div>
 		{/each}
