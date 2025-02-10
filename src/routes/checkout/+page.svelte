@@ -35,7 +35,18 @@
 <h1 class="my-4 text-center text-3xl font-bold">Checkout Page</h1>
 
 <div class="space-y-2 p-4">
-	<p class="text-lg"><span class="font-semibold">Appointment:</span> {checkout.date}</p>
+	<p class="text-lg">
+		<span class="font-semibold">Appointment:</span>
+		{checkout.date.toLocaleTimeString('en-US', {
+			year: '2-digit',
+			month: '2-digit',
+			day: '2-digit',
+			hour: '2-digit',
+			minute: '2-digit',
+			hour12: true,
+			timeZone: 'America/Mexico_City'
+		})}
+	</p>
 	<p class="text-lg"><span class="font-semibold">Service:</span> {checkout.service}</p>
 	<p class="text-lg"><span class="font-semibold">Service price:</span> ${checkout.price}</p>
 	<p class="text-lg"><span class="font-semibold">Pay now:</span> $100</p>

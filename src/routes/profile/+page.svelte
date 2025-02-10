@@ -22,12 +22,14 @@
 					<div class="flex items-center justify-between">
 						<h2 class="card-title">Appointment: {appointment.date}</h2>
 					</div>
-					<p>Service: {appointment.service}</p>
-					<p>Service price: ${calculation.servicePrice}</p>
-					<p>You paid for the reservaton: $100</p>
-					<p class="font-bold">
-						Remaining balance to pay $
-						{calculation.remaining}
+					<p>Service: <span class="font-bold">{appointment.service}</span></p>
+					<p>Service price: <span class="font-bold">${calculation.servicePrice}</span></p>
+					<p>You paid for the reservaton: <span class="font-bold"> $100</span></p>
+					<p>
+						Remaining balance to pay <span class="font-bold">
+							$
+							{calculation.remaining}</span
+						>
 					</p>
 				</div>
 			</div>

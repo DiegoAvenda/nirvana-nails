@@ -44,12 +44,12 @@
 <div class="m-8 md:mx-24 lg:mx-36">
 	<div class="mb-4 flex items-center justify-center gap-8">
 		<div class="flex items-center gap-2">
-			<span>Available</span>
+			<span>Booked</span>
 			<div class="h-5 w-5 border border-black bg-white"></div>
 		</div>
 
 		<div class="flex items-center gap-2">
-			<span>Booked</span>
+			<span>Available</span>
 			<div class="h-5 w-5 border border-white bg-black"></div>
 		</div>
 	</div>
@@ -76,15 +76,11 @@
 					{@const hasAppointment = appointmentsMap.has(currentDate.getTime())}
 					<div class="border p-1 text-center" class:bg-white={hasAppointment}>
 						<button
+							class="h-full w-full"
 							aria-label="appointment slot"
 							disabled={hasAppointment && !data.admin}
 							onclick={() => openModal(currentDate)}
 						>
-							{#if hasAppointment}
-								<p></p>
-							{:else}
-								Free
-							{/if}
 						</button>
 					</div>
 				{/if}

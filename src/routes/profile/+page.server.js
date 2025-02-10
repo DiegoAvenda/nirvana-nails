@@ -24,7 +24,8 @@ export const load = async ({ locals }) => {
 
 		const appointments = rawAppointments.map((order) => ({
 			...order,
-			createdAt: order.createdAt.toLocaleTimeString('en-US', {
+			date: order.date.toLocaleTimeString('en-US', {
+				year: '2-digit',
 				month: '2-digit',
 				day: '2-digit',
 				hour: '2-digit',
