@@ -1,4 +1,6 @@
-<footer class="footer flex items-center justify-between bg-base-200 p-4 text-neutral-content">
+<footer
+	class="footer flex items-center justify-between border-t bg-base-100 p-4 text-neutral-content"
+>
 	<p>Barber shop© {new Date().getFullYear()}</p>
 
 	<nav class="grid-flow-col gap-4 md:place-self-center md:justify-self-end">
