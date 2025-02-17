@@ -5,7 +5,7 @@
 
 <div class="navbar border-b bg-base-100">
 	<div class="flex-1">
-		<a href="/" class="btn btn-ghost mr-2 sm:mr-4 sm:text-xl">BARBER SHOP</a>
+		<a href="/" class="btn btn-ghost sm:mr-4 sm:text-xl">BARBER SHOP</a>
 		<a href="/services" class="btn btn-ghost sm:text-xl">SERVICES</a>
 		<a href="/contact" class="btn btn-ghost sm:text-xl">CONTACT</a>
 	</div>
